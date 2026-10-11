@@ -1,28 +1,124 @@
 # Studio Ghibli Movie Browser
 
-The original React + Tailwind Movie Browser is in `frontend/`. The existing Laravel 13 project supplies its MySQL movie data, session authentication, account favorites, and review CRUD.
+A full-stack Studio Ghibli Movie Browser built with React, Tailwind CSS, Laravel, and MySQL. Users can browse movies, search, filter, sort, register, log in, save favorites, and create, update, or delete their own reviews.
 
-Start MySQL, then run this from the main Laravel project folder:
+## Requirements
+
+Install the following before running the project:
+
+- PHP 8.3 or newer
+- Composer
+- Node.js and npm
+- MySQL, such as XAMPP MySQL
+
+## Installation
+
+Open a terminal in the main project folder and install the Laravel dependencies:
 
 ```powershell
-# Laravel project root
+composer install
+```
+
+Install the React frontend dependencies:
+
+```powershell
+cd frontend
+npm install
+cd ..
+```
+
+Create the Laravel environment file and application key:
+
+```powershell
+Copy-Item .env.example .env
+php artisan key:generate
+```
+
+Start MySQL. In phpMyAdmin, create an empty database. The default name is:
+
+```text
+finaltermlaravel
+```
+
+Open `.env` in the main project folder and set the database values to match your local MySQL setup. For a standard XAMPP installation, use:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=finaltermlaravel
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+If you use a different database name, create that database in phpMyAdmin and use the same name for `DB_DATABASE`.
+
+Create the tables and insert the movie seed data:
+
+```powershell
+php artisan migrate --seed
+```
+
+Build the React frontend:
+
+```powershell
+npm run build
+```
+
+## Run the application
+
+From the main project folder, run:
+
+```powershell
 composer run dev
 ```
 
-Open http://127.0.0.1:8000. This command builds React and starts Laravel; Laravel serves both the application and its API. `npm run dev` from the project root does the same thing.
+Open the application at:
 
-The React source remains in `frontend/`. When you edit it, restart the root command or run `npm run build` and refresh the browser. If assets are already built, `php artisan serve` alone works too.
+```text
+http://127.0.0.1:8000
+```
 
-Demo login: `user@example.com` / `password123`. A second account, `admin@example.com`, uses the same password and follows the same review ownership rules.
+`composer run dev` builds the React frontend and starts the Laravel server. Do not run it inside the `frontend` folder.
 
-This workspace's dependencies and MySQL migrations/seed data are already installed. For fresh setup, database configuration, every API route, the requirement checklist, manual tests, presentation script, and professor questions, read [PROJECT_GUIDE.md](PROJECT_GUIDE.md).
+## Demo accounts
 
-Checks from the project root:
+After running the database seeder, these local demo accounts are available:
+
+| Account | Email | Password |
+| --- | --- | --- |
+| Normal user | `user@example.com` | `password123` |
+| Admin role | `admin@example.com` | `password123` |
+
+The admin role does not have a separate dashboard. Review ownership rules apply to every account.
+
+## Project structure
+
+```text
+app/          Laravel controllers and Eloquent models
+database/     Migrations, seeders, factories, and movie data
+frontend/     React and Tailwind source code
+routes/       Laravel web and API routes
+resources/    Laravel view that loads the React application
+tests/        Automated tests
+```
+
+## Useful commands
+
+Build the frontend after changing React files:
+
+```powershell
+npm run build
+```
+
+Run the backend test suite:
 
 ```powershell
 php -d extension=pdo_sqlite vendor/bin/phpunit
-npm --prefix frontend run lint
-npm --prefix frontend run build
 ```
 
-The SQLite extension flag enables the existing XAMPP extension only for tests; the running app uses MySQL. The original frontend design and browsing logic are retained.
+Run the frontend linter:
+
+```powershell
+npm --prefix frontend run lint
+```
