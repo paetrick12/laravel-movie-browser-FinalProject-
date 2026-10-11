@@ -1,0 +1,84 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Segoe UI', Arial, sans-serif;
+  --font-serif: Georgia, serif;
+  --color-ink: #283e35;
+  --color-background: #f7f8f2;
+  --color-paper: #fffefa;
+  --color-forest: #345b43;
+  --color-forest-dark: #23432f;
+  --color-leaf: #52644c;
+  --color-muted: #617064;
+  --color-line: #dce3d7;
+  --color-meadow: #eaf0df;
+  --color-sage: #cedbbd;
+  --color-mist: #e3e9dc;
+  --color-soft: #e7eddf;
+}
+
+@layer base {
+  body {
+    @apply m-0 bg-background font-sans leading-relaxed text-ink antialiased;
+  }
+
+  h1 {
+    @apply mb-5 font-serif text-4xl leading-tight font-normal md:text-5xl;
+  }
+
+  h2 {
+    @apply mb-4 font-serif text-3xl leading-tight font-normal;
+  }
+
+  h3 {
+    @apply mb-2 text-base leading-tight font-semibold;
+  }
+
+  p {
+    @apply mb-4;
+  }
+
+  button,
+  select {
+    @apply cursor-pointer;
+  }
+
+  input,
+  select {
+    @apply min-h-12 w-full min-w-0 rounded-md border border-line bg-paper px-3 py-2.5 text-sm font-normal text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-4 outline-forest;
+  }
+}
+
+@layer components {
+  .page {
+    @apply mx-auto w-9/10 max-w-290 pt-7 pb-10 md:pt-12;
+  }
+
+  .eyebrow {
+    @apply mb-3.5 text-xs font-bold tracking-widest text-leaf;
+  }
+
+  .button {
+    @apply inline-flex min-h-12 items-center justify-center gap-5 rounded-md border border-forest bg-forest px-5 py-3 text-sm text-white hover:bg-forest-dark;
+  }
+
+  .text-link {
+    @apply text-sm text-forest underline underline-offset-4;
+  }
+
+  .state-panel {
+    @apply flex min-h-75 flex-col items-center justify-center gap-3 px-5 py-10 text-center;
+  }
+
+  .input-label {
+    @apply flex min-w-0 flex-col gap-2 text-sm font-semibold;
+  }
+
+  .nav-link {
+    @apply rounded-md px-2 py-2.5 text-sm hover:bg-soft aria-[current=page]:bg-soft aria-[current=page]:text-forest md:px-3;
+  }
+}
